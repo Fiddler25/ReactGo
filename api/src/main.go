@@ -2,15 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"routes"
 )
 
 func main() {
 	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello World!")
-	})
+	r.GET("/", routes.Index)
 
 	r.Run()
 }

@@ -35,6 +35,24 @@ func main() {
 	}
 	defer db.Close()
 
+	sql, err := db.Prepare("INSERT INTO users(name) VALUES (?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	sql.Exec("testUser")
+
+	sql, err = db.Prepare("UPDATE users SET name = ? WHERE id = 1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	sql.Exec("updateUser")
+
+	sql, err = db.Prepare("DELETE FROM users WHERE id = 2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	sql.Exec()
+
 	rows, err := db.Query("SELECT * FROM users")
     defer rows.Close()
     if err != nil {

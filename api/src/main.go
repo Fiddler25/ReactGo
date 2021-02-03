@@ -15,23 +15,23 @@ import (
 )
 
 type Person struct {
-    ID   int
-    Name string
+	ID   int
+	Name string
 }
 
 func main() {
 	r := gin.Default()
 
 	err := godotenv.Load()
-    if err != nil {
-        log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	db, err := sql.Open("mysql", os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@/" + os.Getenv("DB_NAME"))
 	log.Println("Connected to mysql.")
 
 	if err != nil {
-        log.Fatal(err)
+		log.Fatal(err)
 	}
 	defer db.Close()
 
@@ -54,19 +54,19 @@ func main() {
 	sql.Exec()
 
 	rows, err := db.Query("SELECT * FROM users")
-    defer rows.Close()
-    if err != nil {
-        log.Fatal(err)
-    }
+	defer rows.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for rows.Next() {
-        var person Person
-        err := rows.Scan(&person.ID, &person.Name)
+		var person Person
+		err := rows.Scan(&person.ID, &person.Name)
 
-        if err != nil {
-            log.Fatal(err)
-        }
-        Println(person.ID, person.Name)
+		if err != nil {
+			log.Fatal(err)
+		}
+		Println(person.ID, person.Name)
 	}
 
 	config := cors.DefaultConfig()

@@ -1,17 +1,15 @@
 package main
 
 import (
-	"database/sql"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/gin-contrib/cors"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gin-contrib/sessions"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gin-contrib/sessions/cookie"
-	"routes"
-	. "fmt"
 	"log"
-	"os"
+	"libs"
+	. "fmt"
+	"routes"
 )
 
 type Person struct {
@@ -22,17 +20,7 @@ type Person struct {
 func main() {
 	r := gin.Default()
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	db, err := sql.Open("mysql", os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@/" + os.Getenv("DB_NAME"))
-	log.Println("Connected to mysql.")
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := libs.DBConnector()
 	defer db.Close()
 
 	sql, err := db.Prepare("INSERT INTO users(name) VALUES (?)")

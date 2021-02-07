@@ -12,11 +12,6 @@ import (
 	"routes"
 )
 
-type Person struct {
-	ID   int
-	Name string
-}
-
 func main() {
 	r := gin.Default()
 

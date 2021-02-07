@@ -6,51 +6,14 @@ import (
 	"github.com/gin-contrib/sessions"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gin-contrib/sessions/cookie"
-	"log"
-	"libs"
-	. "fmt"
 	"routes"
+	"queries"
 )
 
 func main() {
 	r := gin.Default()
 
-	db := libs.DBConnector()
-	defer db.Close()
-
-	sql, err := db.Prepare("INSERT INTO users(name) VALUES (?)")
-	if err != nil {
-		log.Fatal(err)
-	}
-	sql.Exec("testUser")
-
-	sql, err = db.Prepare("UPDATE users SET name = ? WHERE id = 1")
-	if err != nil {
-		log.Fatal(err)
-	}
-	sql.Exec("updateUser")
-
-	sql, err = db.Prepare("DELETE FROM users WHERE id = 2")
-	if err != nil {
-		log.Fatal(err)
-	}
-	sql.Exec()
-
-	rows, err := db.Query("SELECT * FROM users")
-	defer rows.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for rows.Next() {
-		var person Person
-		err := rows.Scan(&person.ID, &person.Name)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		Println(person.ID, person.Name)
-	}
+	queries.Query()
 
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:4000"}

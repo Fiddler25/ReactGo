@@ -3,6 +3,8 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"routes"
 )
 
@@ -12,6 +14,7 @@ func NewRouter() *gin.Engine {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:4000"}
 	router.Use(cors.New(config))
+	router.Use(sessions.Sessions("session", cookie.NewStore([]byte("secret"))))
 
 	endpoints(router)
 

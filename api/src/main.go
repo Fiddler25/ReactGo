@@ -11,16 +11,16 @@ import (
 )
 
 func main() {
-	r := gin.Default()
+	router := gin.Default()
 
 	queries.Query()
 
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:4000"}
-	r.Use(cors.New(config))
+	router.Use(cors.New(config))
 
 	store := cookie.NewStore([]byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
+	router.Use(sessions.Sessions("mysession", store))
  
 	r.GET("/hello", func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -32,9 +32,5 @@ func main() {
 
 		c.JSON(200, gin.H{ "hello": session.Get("hello") })
 	})
-	
-	r.GET("/", routes.Index)
-	r.POST("/login", routes.Login)
 
-	r.Run()
 }

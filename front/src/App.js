@@ -13,7 +13,7 @@ export default class App extends Component {
   }
 
   onLogin = async (userId, password) => {
-    const endpoint = "//localhost:8080/login";
+    const endpoint = "//localhost:8080/api/v1/login";
     const options = {
       method: "POST",
       headers: {
@@ -22,7 +22,6 @@ export default class App extends Component {
       body: JSON.stringify({ userId, password }),
     };
     const { result } = await fetch(endpoint, options).then((res) => res.json());
-    console.log(result);
     this.setState({ hasLoggedIn: result });
   };
 

@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gin-contrib/sessions/cookie"
@@ -14,10 +13,6 @@ func main() {
 	router := gin.Default()
 
 	queries.Query()
-
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:4000"}
-	router.Use(cors.New(config))
 
 	store := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))

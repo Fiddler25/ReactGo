@@ -6,8 +6,8 @@ import (
 	"github.com/gin-contrib/sessions"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gin-contrib/sessions/cookie"
-	"routes"
 	"queries"
+	"server"
 )
 
 func main() {
@@ -33,4 +33,5 @@ func main() {
 		c.JSON(200, gin.H{ "hello": session.Get("hello") })
 	})
 
+	server.Init()
 }

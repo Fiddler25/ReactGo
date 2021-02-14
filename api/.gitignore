@@ -1,1 +1,10 @@
+# dependencies
+/bin
+/pkg
+/src/github.com
+/src/golang.org
+/src/google.golang.org
+/src/gopkg.in
+
+# misc
 .env

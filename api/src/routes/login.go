@@ -1,10 +1,10 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
-	"io/ioutil"
 	"encoding/json"
 	. "fmt"
+	"github.com/gin-gonic/gin"
+	"io/ioutil"
 )
 
 type Account struct {
@@ -30,5 +30,5 @@ func Login(c *gin.Context) {
 		result = true
 	}
 
-	c.JSON(200, gin.H{ "result": result })
+	c.JSON(200, gin.H{"result": result})
 }
